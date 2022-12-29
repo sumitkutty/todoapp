@@ -5,7 +5,7 @@ FROM ubuntu:latest
 RUN apt-get -y update
 RUN apt-get -y upgrade
 RUN apt-get install -y sqlite3 libsqlite3-dev python3-pip 
-#curl
+
 
 WORKDIR /app
 
@@ -17,8 +17,6 @@ RUN pip3 install --upgrade pip && pip install -r /app/requirements.txt
 
 RUN ["python3", "database.py","-d", "DB/todos.db"]
 
-
-#CMD ["uvicorn", "main:app", "--reload"]
 
 EXPOSE 8080
 
