@@ -1,4 +1,3 @@
-# To-DO
 from typing import Optional
 from fastapi import FastAPI, Depends, HTTPException
 import models
@@ -12,7 +11,7 @@ app = FastAPI()
 
 #Create the database with todos table in current folder
 models.Base.metadata.create_all(bind=engine)
-#running till here will create the .db file
+#running this will create the .db file
 
 
 
@@ -32,12 +31,12 @@ class Todo(BaseModel):
     priority: int = Field(gt=0, lt=6, description="Enter from 1 to 5")
     complete: bool
     
-#The parameter in the function below means: take a db of type Session which should run when 'get_db' has run
+#The parameter in the function below means: take a db of type Session which will run only when 'get_db' has run
 @app.get("/")
 async def read_all(db:Session = Depends(get_db)):
     #return all tables from models.Todos table.
     return "Run is Successful", db.query(models.Todos).all()
-    #now, we can execute this and check the tables in localhost/8000
+    
 
 
 #API to return a record by passing todo_id
@@ -102,7 +101,7 @@ async def delete_todo(todo_id, db:Session = Depends(get_db)):
     return {"Status" : 201,
             'transaction': 'Successful'}, read_all()
     
-# Creating a new http exception
+
 def http_exception():
     return HTTPException(status_code = 404, detail = 'Item not Found')
 
